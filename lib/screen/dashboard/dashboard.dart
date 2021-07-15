@@ -1,8 +1,8 @@
-import 'package:bytebank/models/saldo.dart';
+import 'package:bytebank/models/customer.dart';
+import 'package:bytebank/screen/autenticacao/login.dart';
 import 'package:bytebank/screen/dashboard/saldo.dart';
 import 'package:bytebank/screen/deposito/formulario.dart';
 import 'package:bytebank/screen/transferencia/formulario.dart';
-import 'package:bytebank/screen/transferencia/lista.dart';
 import 'package:bytebank/screen/transferencia/ultimas.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +18,21 @@ class Dashboard extends StatelessWidget {
       ),
       body: ListView(
         children: [
+          Consumer<Customer>(
+            builder: (context, value, child) {
+              String name = "";
+              if (value.name != null) {
+                name = " ${value.name.split(" ")[0]}";
+              }
+              return Text(
+                "Olá$name, seu saldo de hoje é:",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              );
+            },
+          ),
           Align(
             alignment: Alignment.topCenter,
             child: SaldoCard(),
@@ -52,6 +67,19 @@ class Dashboard extends StatelessWidget {
             ],
           ),
           UltimasTransferencias(),
+          RaisedButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ),
+                (route) => false,
+              );
+            },
+            color: Colors.green,
+            child: Text("Sair"),
+          )
         ],
       ),
     );

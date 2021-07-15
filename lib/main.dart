@@ -1,6 +1,7 @@
+import 'package:bytebank/models/customer.dart';
 import 'package:bytebank/models/saldo.dart';
 import 'package:bytebank/models/transferencias.dart';
-import 'package:bytebank/screen/dashboard/dashboard.dart';
+import 'package:bytebank/screen/autenticacao/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (context) => Transferencias(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Customer(),
         )
       ],
       child: BytebankApp(),
@@ -26,18 +30,19 @@ class BytebankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.green[900],
-        accentColor: Colors.blueAccent[700],
+        accentColor: Color.fromRGBO(71, 161, 56, 1),
         buttonTheme: ButtonThemeData(
-          buttonColor: Colors.blueAccent[700],
+          buttonColor: Color.fromRGBO(71, 161, 56, 1),
           textTheme: ButtonTextTheme.primary,
         ),
       ),
       // home: ListaTransferencias(
       //   transferencias: [],
       // ),
-      home: Dashboard(),
+      home: LoginPage(),
     );
   }
 }
